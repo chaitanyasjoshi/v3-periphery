@@ -34,6 +34,7 @@
     "@uniswap/v2-core": "1.0.1",
     "@uniswap/v3-core": "1.0.0",
     "base64-sol": "1.0.1",
+    "dotenv": "^16.0.0",
     "hardhat-watcher": "^2.1.1"
   },
   "devDependencies": {
@@ -63,6 +64,8 @@
   },
   "scripts": {
     "compile": "hardhat compile",
-    "test": "hardhat test"
+    "test": "hardhat test",
+    "deploy:localhost": "hardhat run scripts/deploy.ts --network localhost",
+    "deploy:gwtestnet": "hardhat run scripts/deploy.ts --network gw_testnet_v1"
   }
 }

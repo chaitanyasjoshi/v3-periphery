@@ -3,6 +3,7 @@ import '@nomiclabs/hardhat-etherscan'
 import '@nomiclabs/hardhat-waffle'
 import 'hardhat-typechain'
 import 'hardhat-watcher'
+require('dotenv').config()
 
 const LOW_OPTIMIZER_COMPILER_SETTINGS = {
   version: '0.7.6',
@@ -77,6 +78,10 @@ export default {
     },
     optimism: {
       url: `https://optimism-mainnet.infura.io/v3/${process.env.INFURA_API_KEY}`,
+    },
+    gw_testnet_v1: {
+      url: `https://godwoken-testnet-web3-v1-rpc.ckbapp.dev`,
+      accounts: [process.env.PRIVATE_KEY],
     },
   },
   etherscan: {
