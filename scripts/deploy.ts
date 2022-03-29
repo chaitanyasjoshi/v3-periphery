@@ -1,6 +1,21 @@
 const hre = require('hardhat')
 
 async function main() {
+  const UniswapInterfaceMulticall = await hre.ethers.getContractFactory('UniswapInterfaceMulticall')
+  const uniswapInterfaceMulticall = await UniswapInterfaceMulticall.deploy()
+  await uniswapInterfaceMulticall.deployed()
+  console.log('UniswapInterfaceMulticall deployed to:', uniswapInterfaceMulticall.address)
+
+  const Quoter = await hre.ethers.getContractFactory('Quoter')
+  const quoter = await Quoter.deploy(process.env.FACTORY, process.env.WETH)
+  await quoter.deployed()
+  console.log('Quoter deployed to:', quoter.address)
+
+  const TickLens = await hre.ethers.getContractFactory('TickLens')
+  const tickLens = await TickLens.deploy()
+  await tickLens.deployed()
+  console.log('TickLens deployed to:', tickLens.address)
+
   const SwapRouter = await hre.ethers.getContractFactory('SwapRouter')
   const swapRouter = await SwapRouter.deploy(process.env.FACTORY, process.env.WETH)
   await swapRouter.deployed()
@@ -31,6 +46,11 @@ async function main() {
   )
   await nonfungiblePositionManager.deployed()
   console.log('NonfungiblePositionManager deployed to:', nonfungiblePositionManager.address)
+
+  const V3Migrator = await hre.ethers.getContractFactory('V3Migrator')
+  const v3Migrator = await V3Migrator.deploy(process.env.FACTORY, process.env.WETH, nonfungiblePositionManager.address)
+  await v3Migrator.deployed()
+  console.log('V3Migrator deployed to:', v3Migrator.address)
 }
 
 main()
